@@ -1,0 +1,421 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /*--bg-clr: #fffff5;
+  --bg-rec: #4d4d4d;
+  --bg-sel-inp: #2f2f2f;
+  --bg-sel-inp-hov: #a50c0c;*/
+  --bg-clr: #cbb9b2;
+  --bg-rec: #8d2a3c;
+  --bg-sel-inp: #2f2f2f;
+  --bg-sel-inp-hov: #0c0c0c;
+  --svg: #a50c0c;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--bg-clr);
+  padding: 1rem;
+}
+
+#recorder-container {
+  text-align: center;
+  background-color: var(--bg-rec);
+  padding: 1rem;
+  border-radius: .6rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.6);
+  width: 90%; /* Make the width responsive */
+  max-width: 38rem; /* Set a maximum width for larger screens */
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap; /* Allows buttons to wrap on smaller screens */
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin: .5rem;
+  border: none;
+  background: radial-gradient(circle at 80% 80%, #44444a, #28282f 60%) 0 0 / 100% 100% padding-box,
+              linear-gradient(#5b5b61, #323238 70%, #202028) 0 0 / 100% 100% border-box;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 6rem;
+  aspect-ratio: 4/3;
+  border-radius: 0.35rem;
+  border: 0.02em solid #0000;
+  transform: perspective(35em) translateZ(3em);
+  box-shadow: inset 0 0 0.3em #fff2, 
+              inset 0 0.2em 0.3em #0004, 
+              inset 0 0.3em 0.2em #0003, 
+              inset -0.05em -0.1em 0.1em #0004, 
+              0.2em 0.2em 0.5em #0006, 
+              0.3em 0.4em 0.6em #0009;
+  z-index: 2;
+  transition: background-color 0.3s ease;
+}
+
+button:active {
+  background: radial-gradient(circle at 80% 80%, #5f5f65, #35353c 70%) 0 0 / 100% 100% padding-box,
+              linear-gradient(#707077, #3c3c43 70%, #2a2a31) 0 0 / 100% 100% border-box;
+  transform: perspective(35em) translateZ(0em);
+  z-index: 1;
+  box-shadow: inset 0 0 1em #fff4, 
+              inset 0 0.2em 0.3em #0006, 
+              0.2em 0.2em 0.5em #0007, 
+              0.3em 0.3em 0.5em #0009;
+}
+
+svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: var(--bg-rec);
+}
+
+button#resume {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.1rem; /* Adjust space between the two icons */
+}
+
+button#resume svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+
+/* Select and input */
+.select-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* Add spacing between the elements */
+  margin: 1rem 0;
+}
+
+/* Style for select */
+select {
+  padding: 0.5rem;
+  background-color: var(--bg-sel-inp);
+  color: var(--bg-clr);
+  font-size: 1rem;
+  cursor: pointer;
+  border: 1px solid var(--bg-clr);
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  width: 6rem; /* Make select smaller */
+  max-width: 100%; /* Ensure it doesn't overflow */
+}
+
+/* Style for input */
+input[type="text"] {
+  padding: 0.6rem;
+  background-color: var(--bg-sel-inp);
+  color: var(--bg-clr);
+  font-size: 1rem;
+  border: 1px solid var(--bg-clr);
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  width: 250px; /* Input wider than select */
+  max-width: 100%; /* Ensure it doesn't overflow */
+}
+
+select:hover,
+input:hover {
+  background-color: var(--bg-sel-inp-hov); /* Hover effect */
+}
+
+input::placeholder {
+  font-weight: bold;
+  opacity: 0.7;
+  color: var(--bg-clr);
+}
+
+label {
+  color: var(--bg-clr);
+  font-weight: 600;
+  margin-left: 2rem;
+}
+
+button:disabled,
+select:disabled,
+input:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#status {
+  margin-top: .6rem;
+  font-size: 1.1rem;
+  color: var(--bg-clr);
+}
+
+input[type="text"] {
+  padding: .6rem;
+  width: 12rem;
+  border: 1px solid var(--bg-clr);
+  border-radius: 5px;
+}
+
+input::placeholder {
+  font-weight: bold;
+  opacity: .7;
+  color: var(--bg-clr);
+}
+
+.socials-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  width: 100%;
+  position: relative; /* Ensure it stays relative */
+}
+
+#social-container {
+  position: fixed;
+  bottom: 5.3rem;
+  right: 7.6rem;
+  display: flex;
+  align-items: center;
+  z-index: 2;
+}
+
+#click-hint {
+  font-size: 0.9rem;
+  color: var(--bg-rec);
+  margin-left: 0.5rem;
+  white-space: nowrap;
+}
+
+/* Hide the socials-menu by default */
+.socials-menu {
+  opacity: 0;
+  pointer-events: none; /* Disable interaction when hidden */
+  transition: opacity 0.5s ease-in-out;
+}
+
+.socials-menu.active {
+  opacity: 1;
+  pointer-events: auto; /* Enable interaction when visible */
+}
+
+
+.social {
+  position: fixed;
+  list-style: none;
+  bottom: 5rem;
+  right: 5rem;
+  display: grid;
+  cursor: pointer;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  outline: 2px solid var(--bg-rec);
+  outline-offset: 3px;
+  transition: all 0.5s ease-in-out;
+}
+
+.social img {
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  filter: brightness(0) saturate(100%) invert(18%) sepia(88%) saturate(2500%) hue-rotate(350deg) brightness(90%) contrast(60%);
+}
+
+.active .social:nth-child(1) {
+  transform: translate(-30px, -45px);
+  
+}
+
+.active .social:nth-child(2) {
+  transform: translate(-50px, 12px);
+}
+
+.active .social:nth-child(3) {
+  transform: translate(30px, -45px);
+}
+
+.active .social:nth-child(4) {
+  transform: translate(50px, 12px);
+}
+
+.active .social:nth-child(5) {
+  transform: translateY(50px);
+}
+
+
+#share-button {
+  position: fixed;
+  bottom: 4.6rem;
+  right: 4.6rem;
+  width: 3rem;
+  height: 3rem;
+  z-index: 2;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: all 0.4s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+#share-button img {
+  width: 3.5rem;
+  height: 3.5rem;
+  object-fit: cover;
+  
+}
+
+.active #share-button img {
+  transform: scale(1.03);
+}
+
+/* Media Queries for Responsiveness */
+
+@media (max-width: 1050px) {
+  .social-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #social-container {
+    position: static; /* Make sure it's within the flow of the document */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: .5rem;
+    padding: 0; /* Adjust the spacing as needed */
+    width: 100%;
+  }
+
+  #click-hint {
+    margin: 0 0 0.5rem 0; /* Space between text and image */
+    text-align: center;
+  }
+
+  #share-button {
+    position: static;
+    margin: 0.5rem auto; /* Center the button initially */
+    transition: all 0.4s ease-in-out;
+  }
+
+  .social {
+    position: static; /* Make sure it's within the flow of the document */
+    margin: 0.7rem; /* Adjust margin as needed */
+    display: inline-block; /* Display inline to align them properly */
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .socials-menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Wrap the items to the next line if needed */
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .social img {
+    width: 1.5rem; /* Adjust size as needed */
+    height: 1.5rem; /* Adjust size as needed */
+    display: block;
+  }
+
+  .active .social:nth-child(1),
+  .active .social:nth-child(2),
+  .active .social:nth-child(3),
+  .active .social:nth-child(4),
+  .active .social:nth-child(5) {
+    transform: none; /* Reset transform for mobile */
+  }
+}
+
+@media (max-width: 768px) {
+  #recorder-container {
+    padding: 1rem;
+    width: 95%; /* Expand width on smaller screens */
+  }
+
+  button {
+    width: 4rem; /* Make buttons smaller on mobile */
+    aspect-ratio: 4/3;
+  }
+
+  .select-input {
+    flex-direction: column;
+    justify-content: center; /* Stack them vertically on smaller screens */
+    align-items: center;   /* Make sure they take full width when stacked */
+  }
+
+  select {
+    width: 25%; /* Full width on mobile */
+  }
+
+  input[type="text"] {
+    width: 50%; /* Full width on mobile */
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #recorder-container {
+    width: 100%; /* Full width on very small screens */
+    padding: 0.5rem;
+  }
+
+  button {
+    width: 3.5rem; /* Smaller buttons on extra small screens */
+  }
+
+  .select-input {
+    flex-direction: column;
+    justify-content: center; /* Stack them vertically on smaller screens */
+    align-items: center;   /* Make sure they take full width when stacked */
+  }
+
+  select {
+    width: 25%; /* Full width on mobile */
+  }
+
+  input[type="text"] {
+    width: 50%; /* Full width on mobile */
+  }
+  select, input[type="text"] {
+    padding: 0.4rem; /* Smaller padding for very small screens */
+    font-size: .7rem;
+  }
+}
